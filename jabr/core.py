@@ -24,9 +24,11 @@ from datetime import datetime
 from typing import Any, Optional, Protocol
 
 
-# Tag format: [[jabr:<entry_id>:<kind>:<value>]]
-# entry_id is a stable hash of (kind, span, value, source)
-TAG_PATTERN = re.compile(r"\[\[jabr:([0-9a-f]+):([a-z_]+):([^\[\]]+)\]\]")
+# Tag format: [[jabr:<entry_id>]]
+# Only the entry_id appears inline. All other fields (kind, value, source,
+# confidence, span) live in the trace. This avoids any escaping issues with
+# brackets, colons, or other special characters in arbitrary values.
+TAG_PATTERN = re.compile(r"\[\[jabr:([0-9a-f]+)\]\]")
 
 
 class RestorationError(Exception):
@@ -191,10 +193,13 @@ def _make_entry_id(
 
 
 def _format_tag(entry: RestorationEntry) -> str:
-    """Render an entry as the inline tag inserted into the output."""
-    # Escape any tag-meaningful characters from the value
-    safe_value = entry.value.replace("[", "\\[").replace("]", "\\]")
-    return f"[[jabr:{entry.entry_id}:{entry.kind}:{safe_value}]]"
+    """Render an entry as the inline tag inserted into the output.
+
+    The tag carries only the entry_id. The full restoration data lives in
+    the trace, indexed by entry_id. This makes the tag immune to brackets,
+    colons, or any other special characters in the value.
+    """
+    return f"[[jabr:{entry.entry_id}]]"
 
 
 def _resolve_overlaps(
@@ -309,8 +314,7 @@ def unrestore(
     """
     # Verify trace integrity if provided
     if trace is not None:
-        tags_in_output = TAG_PATTERN.findall(output)
-        ids_in_output = {t[0] for t in tags_in_output}
+        ids_in_output = set(TAG_PATTERN.findall(output))
         ids_in_trace = {e.entry_id for e in trace.entries}
         missing = ids_in_output - ids_in_trace
         extra = ids_in_trace - ids_in_output

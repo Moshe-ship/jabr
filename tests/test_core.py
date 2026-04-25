@@ -80,11 +80,12 @@ def test_different_now_yields_different_output():
 
 
 def test_tags_are_well_formed():
-    """Every tag follows [[jabr:<id>:<kind>:<value>]] format."""
+    """Every tag follows [[jabr:<id>]] format. The tag carries only the
+    entry_id; full data lives in the trace."""
     import re
     p = "tomorrow morning"
     r = restore(p, ctx())
-    pattern = re.compile(r"\[\[jabr:[0-9a-f]+:[a-z_]+:[^\[\]]+\]\]")
+    pattern = re.compile(r"\[\[jabr:[0-9a-f]+\]\]")
     matches = pattern.findall(r.output)
     assert len(matches) == len(r.trace.entries)
 
@@ -93,7 +94,7 @@ def test_tag_ids_appear_in_trace():
     p = "remind me tomorrow"
     r = restore(p, ctx())
     import re
-    pattern = re.compile(r"\[\[jabr:([0-9a-f]+):")
+    pattern = re.compile(r"\[\[jabr:([0-9a-f]+)\]\]")
     ids_in_output = set(pattern.findall(r.output))
     ids_in_trace = {e.entry_id for e in r.trace.entries}
     assert ids_in_output == ids_in_trace
