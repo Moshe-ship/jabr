@@ -12,6 +12,22 @@ authors = [{ name = "Moshe-ship" }]
 requires-python = ">=3.10"
 dependencies = []
 
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+[project.urls]
+Source = "https://github.com/Moshe-ship/jabr"
+Issues = "https://github.com/Moshe-ship/jabr/issues"
+
 [project.optional-dependencies]
 dev = ["pytest>=7"]
 
