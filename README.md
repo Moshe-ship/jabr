@@ -3,6 +3,7 @@
 > Part of the [**Mizan**](https://github.com/Moshe-ship/mizan) stack — the Arabic-first reliability scale for AI agents.
 
 
+[![PyPI](https://img.shields.io/pypi/v/jabr)](https://pypi.org/project/jabr/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-green.svg)](https://python.org)
 [![Tests: 31 passing](https://img.shields.io/badge/tests-31%20passing-green.svg)]()
@@ -103,6 +104,9 @@ Where `ctx.json` looks like:
 ## Install
 
 ```bash
+pip install jabr
+
+# or from a source checkout:
 pip install -e .
 ```
 
