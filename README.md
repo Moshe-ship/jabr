@@ -6,7 +6,7 @@
 [![PyPI](https://img.shields.io/pypi/v/jabr)](https://pypi.org/project/jabr/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-green.svg)](https://python.org)
-[![Tests: 31 passing](https://img.shields.io/badge/tests-31%20passing-green.svg)]()
+[![CI](https://github.com/Moshe-ship/jabr/actions/workflows/ci.yml/badge.svg)](https://github.com/Moshe-ship/jabr/actions/workflows/ci.yml)
 
 Reversible. Audited. Deterministic. The Restore operation as a standalone primitive for AI agent pipelines.
 
